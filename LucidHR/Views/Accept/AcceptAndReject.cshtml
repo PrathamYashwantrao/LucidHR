@@ -1,0 +1,187 @@
+﻿@model List<LucidHR.Models.UpdateScoreViewModel>
+
+@{
+    Layout = "~/Views/Shared/_TLayout.cshtml";
+}
+
+<style>
+    body {
+        font-family: 'Century Gothic';
+        background-color: #eef2f7;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 1500px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ccc;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #ddd;
+        }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-outline-primary {
+        background-color: transparent;
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            border-color: #0056b3;
+            color: white;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="content">
+        <h1 style="color:black;margin-left:90px;font-family:Garamond"><b>Submitted Tasks</b></h1>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Batch</th>
+                        <th>Task Description</th>
+                        <th>Attachment</th>
+                        <th>Submitted At</th>
+                        <th>Actions</th>
+                        <th>Commitment Status</th>
+                        <th>Score</th>
+                        <th>Update Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.StudentName</td>
+                            <td>@task.Batch</td>
+                            <td>@task.Description</td>
+                            <td>
+                                <a href="@Url.Action("ViewAttachment", "Task", new { filePath = task.FilePath })" target="_blank" class="btn btn-primary">View</a>
+                            </td>
+                            <td>@task.SubmittedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td class="text-center align-middle">
+                                @if (task.Status == "Pending")
+                                {
+                                    <form class="mt-2" asp-action="AcceptTask" asp-controller="Accept" method="post">
+                                        <input type="hidden" name="Id" value="@task.TaskId" />
+                                        <button type="submit" class="btn btn-primary">Accept</button>
+                                    </form>
+                                    <form class="mt-3" asp-action="RejectTask" asp-controller="Accept" method="post">
+                                        <input type="hidden" name="Id" value="@task.TaskId" />
+                                        <button type="submit" class="btn btn-outline-primary">Reject</button>
+                                    </form>
+                                }
+                                else if (task.Status == "Accepted")
+                                {
+                                    <button class="btn btn-primary">Accepted</button>
+                                }
+                                else if (task.Status == "Rejected")
+                                {
+                                    <button class="btn btn-primary">Rejected</button>
+                                }
+                            </td>
+                            <td>
+                                @if (task.CommitmentStatus == "late")
+                                {
+                                    <a class="text-center btn btn-primary" onclick='alert("@task.LateReason")'>@task.CommitmentStatus</a>
+                                }
+                                else
+                                {
+                                    <p>@task.CommitmentStatus</p>
+                                }
+                            </td>
+                            <td class="text-center align-middle">@(task.Score.HasValue ? task.Score.ToString() : "NA")</td>
+                            <td>
+                                @if (task.Status == "Accepted")
+                                {
+                                    <form action="@Url.Action("UpdateScore", "Accept")" method="post">
+                                        <div class="form-group">
+                                            <input type="hidden" name="taskId" value="@task.TaskId" />
+                                            <input type="number" name="score" class="form-control" placeholder="Enter score">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update Score</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No submitted tasks found.</p>
+        }
+    </div>
+</div>

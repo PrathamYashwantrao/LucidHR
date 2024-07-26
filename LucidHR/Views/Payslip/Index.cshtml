@@ -1,0 +1,91 @@
+﻿@model LucidHR.Models.PayslipViewModel
+
+<head>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Generate PaySlip</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <form asp-controller="Payslip" asp-action="GeneratePayslip" method="post">
+                    <div>
+                        <label asp-for="uemail">User Email</label>
+                        <input type="text" asp-for="uemail" type="text" id="uid" name="uemail" />
+                    </div>
+                    <div>
+                        <label asp-for="month">Month</label>
+                        <input asp-for="month" type="text" id="month" name="month" />
+                    </div>
+                    <div>
+                        <label asp-for="year">Year</label>
+                        <input type="text" asp-for="year" id="year" name="year" />
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Generate</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <script>
+    async function generatePayslip() {
+        const uid = document.getElementById('uid').value;
+        const month = document.getElementById('month').value;
+        const year = document.getElementById('year').value;
+
+        const data = {
+            uid: parseInt(uid),
+            month: month,
+            year: parseInt(year)
+        };
+
+        const response = await fetch('/Payslip/Generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            window.open(url);
+        } else {
+            alert('Error generating payslip');
+        }
+    }
+</script>
+ *@

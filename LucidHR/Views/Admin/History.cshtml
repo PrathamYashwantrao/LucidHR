@@ -1,0 +1,67 @@
+﻿@model List<LucidHR.Models.Ticket>
+
+
+@{
+    ViewData["Title"] = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>All Tickets Till Date</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <h1>History</h1>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ticket Id</th>
+                            <th>from Name</th>
+                            <th>from Role</th>
+                            <th>To Role</th>
+                            <th>To Name</th>
+                            <th>Ticket Detail</th>
+                            <th>Solution</th>
+                            <th>Status</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model)
+                        {
+                            <tr>
+                                <td>@ticket.Id</td>
+                                <td>@ticket.FromName</td>
+                                <td>@ticket.FromRole</td>
+                                <td>@ticket.ToRole</td>
+                                <td>@ticket.ToName</td>
+                                <td>@ticket.TicketDetail</td>
+                                <td>@ticket.solution</td>
+                                <td>@ticket.status</td>
+                                <td>@ticket.GetDateTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

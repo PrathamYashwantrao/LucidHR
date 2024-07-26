@@ -1,0 +1,193 @@
+﻿@model LucidHR.Models.LeaveRequest;
+
+@{
+    ViewData["Title"] = "Apply for Leave";
+    var balanceLeaves = ViewBag.BalanceLeaves ?? 0;
+    var appliedLeaves = ViewBag.AppliedLeaves ?? 0;
+    var today = DateTime.Today.ToString("yyyy-MM-dd");
+}
+
+<head>
+    <style>
+        .leave-form-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .leave-form {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .leave-status {
+            flex: 0 0 250px;
+            padding: 29px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 80px;
+        }
+
+        .leave-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .leave-item h6 {
+                margin: 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+        .leave-count {
+            margin: 0;
+            font-size: 25px;
+            color: #d9534f; /* Bootstrap's text-danger color */
+            text-align: center;
+        }
+
+        .apply-leave-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #563d7c; /* A shade of purple */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+            .apply-leave-btn:hover {
+                background-color: #452c68; /* Darker shade of purple */
+            }
+    </style>
+</head>
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+                <div class="container">
+                    <h3 class="m-0 fs-5">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                        Apply For Leave
+                    </h3>
+                    <div class="leave-form-container mt-3 pb-5">
+                        <div class="leave-form">
+                            <form asp-action="ApplyLeave" asp-controller="Leave" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group mt-3">
+                                    <label asp-for="leavefromdate" class="control-label"></label>
+                                    <input asp-for="leavefromdate" class="form-control" type="date" min="@today" />
+                                    <span asp-validation-for="leavefromdate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label asp-for="leavetodate" class="control-label"></label>
+                                    <input asp-for="leavetodate" class="form-control" type="date" min="@today" />
+                                    <span asp-validation-for="leavetodate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label asp-for="reason" class="control-label"></label>
+                                    <textarea asp-for="reason" class="form-control" rows="3"></textarea>
+                                    <span asp-validation-for="reason" class="text-danger"></span>
+                                </div>
+
+                                <!-- Hidden fields to store leave days -->
+                                <input type="hidden" id="balanceLeaveDays" name="balanceLeaveDays" value="@balanceLeaves" />
+                                <input type="hidden" id="appliedLeaveDaysHidden" name="appliedLeaveDaysHidden" value="@appliedLeaves" />
+                                <input type="hidden" id="absentLeaveDays" name="absentLeaveDays" />
+
+                                <button type="submit" class="btn btn-primary apply-leave-btn mt-3">Apply Leave</button>
+                            </form>
+                        </div>
+                        <div class="leave-status">
+                            <div class="leave-item">
+                                <h6>Balance Leaves :</h6>
+                                <p id="balanceLeavesLink" class="leave-count">@balanceLeaves</p>
+                            </div>
+                            <div class="leave-item">
+                                <h6>Applied Leaves :</h6>
+                                <p id="appliedLeaveDays" class="leave-count">@appliedLeaves</p>
+                            </div>
+                            <div class="leave-item">
+                                <h6>Absent Days :</h6>
+                                <p id="absentLeavesLink" class="leave-count">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Set the minimum date for the leavefromdate and leavetodate inputs
+            var today = new Date().toISOString().split('T')[0];
+            $('#leavefromdate').attr('min', today);
+            $('#leavetodate').attr('min', today);
+
+            // Set the default date to today if the input is empty or has the default minimum date
+            if (!$('#leavefromdate').val() || $('#leavefromdate').val() === '0001-01-01') {
+                $('#leavefromdate').val(today);
+            }
+            if (!$('#leavetodate').val() || $('#leavetodate').val() === '0001-01-01') {
+                $('#leavetodate').val(today);
+            }
+
+            // Calculate and display applied leave days and absent days dynamically
+            $('#leavefromdate, #leavetodate').change(function () {
+                var fromDate = $('#leavefromdate').val();
+                var toDate = $('#leavetodate').val();
+
+                // Set the minimum date for the toDate field based on the selected fromDate
+                $('#leavetodate').attr('min', fromDate);
+
+                if (fromDate && toDate) {
+                    $.ajax({
+                        url: '@Url.Action("CalculateAppliedLeaves", "Leave")',
+                        type: 'GET',
+                        data: {
+                            fromDate: fromDate,
+                            toDate: toDate
+                        },
+                        success: function (data) {
+                            $('#appliedLeaveDays').text(data.appliedLeaves);
+                            $('#appliedLeaveDaysHidden').val(data.appliedLeaves);
+
+                            // Calculate and display absent days
+                            var balanceLeaves = parseInt($('#balanceLeaveDays').val());
+                            var appliedLeaves = data.appliedLeaves;
+                            var absentDays = appliedLeaves > balanceLeaves ? appliedLeaves - balanceLeaves : 0;
+                            $('#absentLeavesLink').text(absentDays);
+                            // Update the hidden input field
+                            $('#absentLeaveDays').val(absentDays);
+                        },
+                        error: function (error) {
+                            console.error('Error calculating applied leaves:', error);
+                            $('#appliedLeaveDays').text('Error');
+                        }
+                    });
+                }
+            });
+
+            // Update applied leaves and absent days on page load if dates are already selected
+            $('#leavefromdate, #leavetodate').trigger('change');
+        });
+    </script>
+}

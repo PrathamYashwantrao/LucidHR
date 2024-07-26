@@ -1,0 +1,147 @@
+﻿@model LucidHR.Models.JoiningForm
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-picture {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 5px solid #ffffff;
+        }
+
+            .profile-picture img {
+                width: 100%;
+                height: auto;
+            }
+
+        .profile-info {
+            margin-top: 80px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+            .form-group label {
+                width: 30%;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #333;
+            }
+
+        .form-control {
+            width: 65%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .fa {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body>
+
+    <div id="main-content">
+        <div class="container-fluid">
+
+            <div class="block-header py-lg-4 py-3">
+                <div class="row g-3">
+                    <div class="col-md-6 col-sm-12">
+
+                        <h1 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> Welcome To Our Portal!</h1>
+
+
+                    </div>
+                    <div>
+                        <div class="profile-container">
+                            @* <h2>My Profile</h2> *@
+                            <div class="profile-picture mb-4">
+                                @* <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Profile Picture" /> *@
+                                @* <img src="@Model.pphoto" alt="Profile Picture" /> *@
+                                @if (Model.pphoto != null)
+                                {
+                                    <img src="@Url.Content($"https://localhost:44383/api/Joiningform/download/{@Model.pphoto}")" height="50" />
+                                }
+                                else
+                                {
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Profile Picture" />
+                                }
+                            </div>
+                            <form asp-action="SaveProfile" method="post" class="mt-5">
+                                <div class="form-group">
+                                    <label for="FullName"><i class="fa fa-user"></i> Full Name</label>
+                                    <input type="text" id="FullName" name="FullName" class="form-control" value="@Model.Fullname" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email"><i class="fa fa-envelope"></i> Email</label>
+                                    <input type="email" id="Email" name="Email" class="form-control" value="@Model.Uemail" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Gender"><i class="fa fa-venus-mars"></i> Gender</label>
+                                    <input type="text" id="Gender" name="Gender" class="form-control" value="@Model.Gender " />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Designation"><i class="fa fa-briefcase"></i> Designation</label>
+                                    <input type="text" id="Designation" name="Designation" class="form-control" value="@Model.Designation " />
+                                </div>
+                                <div class="form-group">
+                                    <label for="ContactNumber"><i class="fa fa-phone"></i> Contact Number</label>
+                                    <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="@Model.Contact " />
+                                </div>
+                                @* <button type="submit" class="btn btn-secondary">Save Changes</button> *@
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+</body>
+</html>

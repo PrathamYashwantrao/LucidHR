@@ -1,0 +1,145 @@
+﻿@* ----mohan ka *@
+
+@{
+    ViewData["Title"] = "View Calendar";
+
+}
+@model IEnumerable<LucidHR.Models.Event>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Calendar View</title>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        #calendar {
+            max-width: 100%; /* Adjust width as needed */
+            margin: auto;
+            height: 700px; /* Adjust height as needed */
+        }
+
+        .fc-event {
+            color: white !important; /* Default text color for all events */
+        }
+    </style>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+
+    @*     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    *@    <!-- Add other CSS links or stylesheets as needed -->
+    <!-- FullCalendar CSS from CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <!-- FullCalendar JavaScript from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <!-- FullCalendar DayGrid Plugin from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/daygrid/main.min.js"></script>
+    <!-- FullCalendar Timezone Plugin from CDN (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/moment-timezone/main.min.js"></script>
+</head>
+<body>
+
+    
+
+
+    <div id="main-content">
+
+        <div class="block-header py-lg-4 py-3">
+            <div class="row g-3">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Calender</h2>
+                    @* <ul class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index-2.html">Lucid</a></li>
+                    <li class="breadcrumb-item">Apps</li>
+                    <li class="breadcrumb-item active">Tickets</li>
+                    </ul> *@
+                </div>
+                <div class="col-md-6 col-sm-12 text-md-end">
+                    @* <div class="d-inline-flex text-start">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-user"></i> 1,784</h6>
+                    <small>Visitors</small>
+                    </div>
+                    <span id="bh_visitors"></span>
+                    </div>
+                    <div class="d-inline-flex text-start ms-lg-3 me-lg-3 ms-1 me-1">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-globe"></i> 325</h6>
+                    <small>Visits</small>
+                    </div>
+                    <span id="bh_visits"></span>
+                    </div>
+                    <div class="d-inline-flex text-start">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-comments"></i> 13</h6>
+                    <small>Chats</small>
+                    </div>
+                    <span id="bh_chats"></span>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid">
+            <div class="row g-3">
+                <div>
+
+                    <!-- Calendar container -->
+                    <div id="calendar"></div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // Show month view initially
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                displayEventTime: false, // Do not display the event time
+                events: {
+                    url: '@Url.Action("GetEvents", "Dashboard")', // URL to your controller action
+                    method: 'GET',
+                    failure: function () {
+                        alert('There was an error while fetching events!');
+                    },
+                    color: 'white',   // a non-ajax option
+                    textColor: 'white' // a non-ajax option
+                },
+                eventClick: function (info) {
+                    console.log(info.event); // Handle event click if needed
+                },
+                eventDidMount: function (info) {
+                    if (info.event.extendedProps.customColor) {
+                        info.el.style.backgroundColor = info.event.extendedProps.customColor;
+                    }
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
+</body>
+</html>

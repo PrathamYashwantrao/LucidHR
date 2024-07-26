@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "All Events";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // This line ensures that _layout.cshtml is not used for this view
+}
+
+
+@model List<LucidHR.Models.Event>
+<head>
+    @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous"> *@
+</head>
+
+
+
+@* <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: aliceblue;">
+
+    <a class="navbar-brand" href="#">HR Dashboard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+           @*  <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("EmployeeInfo", "Dashboard")">Generate Payslip <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("DetailsForOfferletter", "Dashboard")">Generate Offer Letter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("AddEvent", "Dashboard")">Add Event</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("AllEvent", "Dashboard")">All Events</a>
+            </li>
+        </ul>
+    </div>
+</nav>; *@
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a> All Events</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+
+                <h2 style="text-align:center">Event Management</h2>
+
+                <p>
+                    <a asp-action="AddEvent" class="btn btn-primary">Add New Event</a>
+                </p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Event Title</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Event Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.StartDate.ToShortDateString()</td>
+                                <td>@item.EndDate.ToShortDateString()</td>
+                                <td>@item.Type</td>
+                                <td>
+                                    @* <a asp-action="EditEvent" asp-route-id="@item.Id">Edit</a> | *@
+                                    <a asp-action="DeleteEvent" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

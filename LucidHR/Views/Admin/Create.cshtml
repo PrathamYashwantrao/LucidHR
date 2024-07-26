@@ -1,0 +1,84 @@
+﻿@model LucidHR.Models.f16
+
+@{
+    ViewData["Title"] = "Create F16 Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create F16 Form</h2>
+
+<div id="main-content">
+
+
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Upload F16 Form</h2>
+                @* <ul class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index-2.html">Lucid</a></li>
+                <li class="breadcrumb-item">Apps</li>
+                <li class="breadcrumb-item active">Tickets</li>
+                </ul> *@
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+                @* <div class="d-inline-flex text-start">
+                <div class="me-2">
+                <h6 class="mb-0"><i class="fa fa-user"></i> 1,784</h6>
+                <small>Visitors</small>
+                </div>
+                <span id="bh_visitors"></span>
+                </div>
+                <div class="d-inline-flex text-start ms-lg-3 me-lg-3 ms-1 me-1">
+                <div class="me-2">
+                <h6 class="mb-0"><i class="fa fa-globe"></i> 325</h6>
+                <small>Visits</small>
+                </div>
+                <span id="bh_visits"></span>
+                </div>
+                <div class="d-inline-flex text-start">
+                <div class="me-2">
+                <h6 class="mb-0"><i class="fa fa-comments"></i> 13</h6>
+                <small>Chats</small>
+                </div>
+                <span id="bh_chats"></span>
+                </div> *@
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <form asp-action="Create" enctype="multipart/form-data" method="post" class="container">
+                    <div class="form-group">
+                        <label asp-for="email" class="control-label">Email</label>
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="attachment" class="control-label">Attachment</label>
+                        <input type="file" asp-for="attachment" class="form-control" />
+                        <span asp-validation-for="attachment" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary my-3" />
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

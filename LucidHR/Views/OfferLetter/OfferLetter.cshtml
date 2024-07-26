@@ -1,0 +1,148 @@
+﻿@model OfferLetterViewModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Letter</title>
+  @*   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+     *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000;
+        }
+
+        .icontainer {
+            margin: auto;
+            border: 1px solid #000;
+            padding: 50px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 960px;
+            min-width: 960px;
+        }
+        h4 {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        p, ul, li {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .signature {
+            width: 150px;
+            height: auto;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        sup {
+            font-size: smaller;
+        }
+    </style>
+</head>
+<body>
+    <div class="icontainer">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img src="~wwwroot/Images/masstechimage.png" alt="Company Logo" class="img-fluid mt-3">
+                <h4>Masstech Business Solutions</h4>
+                <p>5B3, Gundeccha Onclave, Near Sakinaka Metro, Mumbai - 400072</p>
+                <p>Email: hr@masstechbusiness.com | Website: www.masstechbusiness.com</p>
+                <p>CIN - U74999MH2017PTC293366</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="text-right" id="current-date"></p>
+                <p>To,</p>
+                <p> @Model.Name</p>
+                <p>Address: Panchaganga Society, Naidu colony, Opp building no 168, Ghatkopar East, Mumbai - 400075</p>
+                <p>Dear @Model.Name ,</p>
+                <p>Congratulations and welcome to the <strong>Masstech Business Solutions Team!</strong></p>
+                <p>We are delighted to have you join us and contribute to the success of Masstech Business Solutions Pvt. Ltd. as a <strong>@Model.Role</strong>. Your total annual cost to the company will be <strong>INR 2,50,000/- (Rupees Two Lakhs Fifty Thousand Only)</strong> and you will be based in Mumbai.</p>
+                <p>Your Date of Joining is @Model.DateOfJoining, at our following address, failing which this offer will stand automatically cancelled.</p>
+                <p>
+                    <strong>
+                        Masstech Business Solutions Pvt. Ltd.<br>
+                        5B3, Gundeccha Onclave,<br>
+                        Khairani Road, Near Sakinaka Metro,<br>
+                        Mumbai - 400069.
+                    </strong>
+                </p>
+
+             
+                <p>Please bring the below-listed documents at the time of joining duty for our records with the original & one copy of Xerox:</p>
+                <ul>
+                    <li>Passport size photographs 4 nos.</li>
+                    <li>Photocopy of all qualification certificates with Mark sheet.</li>
+                    <li>Proof of present residence (Aadhar Card).</li>
+                    <li>Photo Identity Proof (PAN Card).</li>
+                    <li>Relieving letter/Appointment letter of your last employment.</li>
+                    <li>Salary slips for the last 3 months.</li>
+                    <li>One Cancel Cheque to which the salary will be remitted.</li>
+                </ul>
+                <p>Yours truly,</p>
+                <p><strong>For, Masstech Business Solutions Pvt. Ltd.</strong></p>
+                <p><img src="path_to_signature.png" alt="Signature" class="img-fluid signature"></p>
+                <p>Mr. Abhishek Wikal<br>Authorized Signatory</p>
+                <p class="text-right"><strong>Accepted & Received</strong></p>
+                <p class="text-right">@Model.Name</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th'; // special case
+            switch (day % 10) {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
+        }
+
+        function formatFullDate(date) {
+            const day = date.getDate();
+            const month = date.toLocaleString('default', { month: 'short' });
+            const year = date.getFullYear();
+            const suffix = getOrdinalSuffix(day);
+            return ${ month } ${ day } <sup>${ suffix } </sup>, ${year};
+        }
+
+        const currentDate = new Date();
+        const joinDate = new Date();
+        joinDate.setDate(currentDate.getDate() + 5);
+
+        document.getElementById('current-date').innerHTML = formatFullDate(currentDate);
+        document.getElementById('join-date').innerHTML = formatFullDate(joinDate);
+    </script>
+</body>
+</html>
+

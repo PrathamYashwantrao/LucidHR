@@ -1,0 +1,255 @@
+﻿@{
+    ViewData["Title"] = "LeaveRequests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from wrraptheme.com/templates/lucid/hr/bs5/dist/emp-leave.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Jul 2024 07:21:06 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>:: Lucid HR BS5 :: Leave Request</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Lucid HR & Project Admin Dashboard Template with Bootstrap 5x">
+    <meta name="author" content="WrapTheme, design by: ThemeMakker.com">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../assets/css/dataTables.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+
+<body>
+
+    <div id="layout" class="theme-cyan">
+
+        <!-- Page Loader -->
+        <div class="page-loader-wrapper text-center">
+            <div class="loader">
+                <svg class="p-3 bg-light rounded" width="120px" viewBox="0 0 85 25">
+                    <path d="M12.3,7.2l1.5-3.7l8.1,19.4H19l-2.4-5.7H8.2l1.1-2.5h6.1L12.3,7.2z M14.8,20.2l1,2.7H0L9.5,0h3.1L4.3,20.2H14.8
+                z M29,18.5v-14h1.6v12.6h6.2v1.5H29V18.5z M49.6,4.5v9.1c0,1.6-0.5,2.9-1.5,3.8s-2.3,1.4-4,1.4s-3-0.5-3.9-1.4s-1.4-2.2-1.4-3.8V4.5
+                h1.6v9.1c0,1.2,0.3,2.1,1,2.7c0.6,0.6,1.6,0.9,2.8,0.9s2.1-0.3,2.7-0.9c0.6-0.6,1-1.5,1-2.7V4.5H49.6z M59.4,5.7
+                c-1.5,0-2.8,0.5-3.7,1.5s-1.3,2.4-1.3,4.2s0.4,3.3,1.3,4.3c0.9,1,2.1,1.5,3.7,1.5c1,0,2.1-0.2,3.4-0.5v1.4c-1,0.4-2.2,0.5-3.6,0.5
+                c-2.1,0-3.7-0.6-4.8-1.9s-1.7-3-1.7-5.4c0-1.4,0.3-2.7,0.8-3.8c0.5-0.9,1.3-1.8,2.3-2.4s2.2-0.9,3.6-0.9c1.5,0,2.8,0.3,3.9,0.8
+                l-0.7,1.4C61.5,6,60.4,5.7,59.4,5.7z M65.8,18.5v-14h1.6v14.1h-1.6V18.5z M82.5,11.3c0,2.3-0.6,4.1-1.9,5.3s-3.1,1.8-5.4,1.8h-3.9
+                V4.5h4.3c2.2,0,3.9,0.6,5.1,1.8S82.5,9.2,82.5,11.3z M80.8,11.4c0-1.8-0.5-3.2-1.4-4.1s-2.3-1.4-4.1-1.4h-2.4v11.2h2
+                c1.9,0,3.4-0.5,4.4-1.4S80.8,13.3,80.8,11.4z" />
+                </svg>
+                <div class="h5 fw-light mt-3">Please wait</div>
+            </div>
+        </div>
+
+        <div id="wrapper">
+
+           
+
+            <div id="main-content">
+                <div class="container-fluid">
+
+                    <div class="block-header py-lg-4 py-3">
+                        <div class="row g-3">
+                            <div class="col-md-6 col-sm-12">
+                                <h2 class="m-0 fs-5">
+                                    <a href="javascript:void(0);"
+                                       class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth">
+                                        <i class="fa fa-arrow-left"></i>
+                                    </a> Leave Request
+                                </h2>
+                               @*  <ul class="breadcrumb mb-0">
+                                    <li class="breadcrumb-item"><a href="index-2.html">Lucid</a></li>
+                                    <li class="breadcrumb-item">Employee</li>
+                                    <li class="breadcrumb-item active">Leave Request</li>
+                                </ul> *@
+                            </div>
+                            <div class="col-md-6 col-sm-12 text-md-end">
+                               @*  <div class="d-inline-flex text-start">
+                                    <div class="me-2">
+                                        <h6 class="mb-0"><i class="fa fa-user"></i> 1,784</h6>
+                                        <small>Visitors</small>
+                                    </div>
+                                    <span id="bh_visitors"></span>
+                                </div>
+                                <div class="d-inline-flex text-start ms-lg-3 me-lg-3 ms-1 me-1">
+                                    <div class="me-2">
+                                        <h6 class="mb-0"><i class="fa fa-globe"></i> 325</h6>
+                                        <small>Visits</small>
+                                    </div>
+                                    <span id="bh_visits"></span>
+                                </div>
+                                <div class="d-inline-flex text-start">
+                                    <div class="me-2">
+                                        <h6 class="mb-0"><i class="fa fa-comments"></i> 13</h6>
+                                        <small>Chats</small>
+                                    </div>
+                                    <span id="bh_chats"></span>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-12">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h6 class="card-title">Employee List</h6>
+                                    <ul class="header-dropdown">
+                                        <li>
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Leave</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <table id="emp_leave" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Employee ID</th>
+                                                <th>Leave Type</th>
+                                                <th>Date</th>
+                                                <th>Reason</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="width45">
+                                                    <img src="../assets/images/xs/avatar1.jpg" class="rounded-circle avatar" alt="">
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0">Marshall Nichols</h6>
+                                                </td>
+                                                <td><span>LA-0215</span></td>
+                                                <td><span>Casual Leave</span></td>
+                                                <td>24 July, 2021 to 26 July, 2021</td>
+                                                <td>Going to Family Function</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa fa-ban"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width45">
+                                                    <img src="../assets/images/xs/avatar2.jpg" class="rounded-circle avatar" alt="">
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0">Maryam Amiri</h6>
+                                                </td>
+                                                <td><span>LA-0215</span></td>
+                                                <td><span>Casual Leave</span></td>
+                                                <td>21 July, 2021 to 26 July, 2021</td>
+                                                <td>Attend Birthday party</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa fa-ban"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width45">
+                                                    <img src="../assets/images/xs/avatar4.jpg" class="rounded-circle avatar" alt="">
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0">Gary Camara</h6>
+                                                </td>
+                                                <td><span>LA-0218</span></td>
+                                                <td><span>Medical Leave</span></td>
+                                                <td>20 July, 2021 to 26 July, 2021</td>
+                                                <td>Going to Development</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa fa-ban"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width45">
+                                                    <img src="../assets/images/xs/avatar5.jpg" class="rounded-circle avatar" alt="">
+                                                </td>
+                                                <td>
+                                                    <h6 class="mb-0">Frank Camly</h6>
+                                                </td>
+                                                <td><span>LA-0211</span></td>
+                                                <td><span>Casual Leave</span></td>
+                                                <td>11 Aug, 2021 to 21 Aug, 2021</td>
+                                                <td>Going to Holiday</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa fa-ban"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Default Size -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="title" id="defaultModalLabel">Add Leave</h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option>Select Leave Type</option>
+                                    <option>Casual Leave (12)</option>
+                                    <option>Medical Leave</option>
+                                    <option>Maternity Leave</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="From *">
+                            </div>
+                            <div class="col-6">
+                                <input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="From *">
+                            </div>
+                            <div class="col-12">
+                                <textarea rows="6" class="form-control no-resize" placeholder="Leave Reason *"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- core js file -->
+    <script src="../assets/bundles/libscripts.bundle.js"></script>
+    <script src="../assets/bundles/dataTables.bundle.js"></script>
+
+    <!-- page js file -->
+    <script src="../assets/bundles/mainscripts.bundle.js"></script>
+    <script>
+        $(document).ready(function () {
+            var extensions = {
+                "sFilter": "dataTables_filter custom_filter_class"
+            }
+            $.extend($.fn.dataTableExt.oStdClasses, extensions);
+            $('#emp_leave')
+                .dataTable({
+                    responsive: true,
+                });
+        });
+    </script>
+</body>
+
+<!-- Mirrored from wrraptheme.com/templates/lucid/hr/bs5/dist/emp-leave.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 11 Jul 2024 07:21:06 GMT -->
+</html>

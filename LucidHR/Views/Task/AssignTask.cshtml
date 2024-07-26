@@ -1,0 +1,221 @@
+﻿@model LucidHR.Models.AssignTaskViewModel
+
+@{
+    ViewData["Title"] = "Assign Task";
+    Layout = "~/Views/Shared/_TLayout.cshtml";
+}
+
+<style>
+    body {
+        font-family: 'Century Gothic';
+        background-color: #eef2f7;
+    }
+
+    .page-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .mainCard {
+        width: 60%;
+        border: 1px solid #ccc !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #fff;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+        .card-body h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+    .form-floating label {
+        font-weight: bold;
+        color: #666;
+    }
+
+    .form-floating textarea,
+    .form-floating input,
+    .form-floating select {
+        border-radius: 4px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+    .dropdown-toggle::after {
+        margin-left: 0.5rem;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+        .dropdown-menu .list-unstyled {
+            padding-left: 0;
+            list-style: none;
+        }
+
+            .dropdown-menu .list-unstyled div {
+                padding: 8px;
+                border-bottom: 1px solid #eee;
+            }
+
+                .dropdown-menu .list-unstyled div:last-child {
+                    border-bottom: none;
+                }
+
+                .dropdown-menu .list-unstyled div input {
+                    margin-right: 10px;
+                }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 1rem;
+        border-radius: 4px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+</style>
+
+<div class="page-wrapper bgclr">
+    <div class="content container-fluid">
+        <div class="w-100 bgclr d-flex justify-content-center align-items-center">
+            <div class="card mainCard">
+                <div class="card-body">
+                    <h3 class="text-center fw-bold mb-3" style="font-family:Garamond">Assign Task</h3>
+                    <form asp-action="AssignTask" method="post" enctype="multipart/form-data">
+                        <div class="row mb-3" style="font-family:'Century Gothic'">
+                            <div class="col form-floating">
+                                <select id="batchDropdown" asp-for="SelectedBatch" class="form-control">
+                                    <option value="">Select Batch</option>
+                                    @foreach (var batch in Model.Batches)
+                                    {
+                                        <option value="@batch">@batch</option>
+                                    }
+                                </select>
+                                <label for="SelectedBatch" class="mx-3">Select Batch :</label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownStudentsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Students
+                                    </button>
+                                    <div class="dropdown-menu p-3" aria-labelledby="dropdownStudentsButton">
+                                        <div id="selectAllContainer">
+                                            <input type="checkbox" id="selectAll" /> Select All
+                                        </div>
+                                        <div class="list-unstyled" id="studentsList">
+                                            @* Initially empty; will be filled by AJAX *@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col form-floating">
+                                <textarea asp-for="TaskDescription" class="form-control" rows="5"></textarea>
+                                <label for="TaskDescription" class="mx-3">Enter Task :</label>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col form-floating">
+                                <input type="file" asp-for="Attachment" class="form-control" />
+                                <label for="Attachment" class="mx-3">Upload Attachments :</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary form-control">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Fetch and populate students based on selected batch
+        $('#batchDropdown').change(function () {
+            var selectedBatch = $(this).val();
+            if (selectedBatch) {
+                $.ajax({
+                    url: '@Url.Action("GetUsersByBatch", "Task")',
+                    type: 'GET',
+                    data: { batch: selectedBatch },
+                    success: function (data) {
+                        var $studentsList = $('#studentsList');
+                        var $selectAllContainer = $('#selectAllContainer');
+
+                        $studentsList.empty(); // Clear existing students
+                        $selectAllContainer.empty().append('<input type="checkbox" id="selectAll" /> Select All');
+                        $.each(data, function (index, student) {
+                            $studentsList.append('<div><input type="checkbox" name="SelectedStudents" value="' + student.username + '" /> ' + student.fullName + '</div>');
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to fetch students:', error);
+                        $('#studentsList').empty(); // Clear student list on error
+                    }
+                });
+            } else {
+                $('#studentsList').empty(); // Clear student list if no batch selected
+            }
+        });
+
+        // Select/Deselect all students
+        $(document).on('click', '#selectAll', function () {
+            var isChecked = $(this).is(':checked');
+            $('input[name="SelectedStudents"]').prop('checked', isChecked);
+        });
+
+        var successMessage = '@TempData["SuccessMessage"]';
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+</script>

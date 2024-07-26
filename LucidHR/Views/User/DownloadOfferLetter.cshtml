@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var userEmail = User.Identity.Name; // Assuming the email is stored in User.Identity.Name after login
+}
+
+<h1>Employee</h1>
+
+<form asp-action="DownloadOfferLetter" method="post">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" value="@userEmail" readonly required>
+    </div>
+    <button type="submit" class="btn btn-primary">Download Offer Letter</button>
+</form>

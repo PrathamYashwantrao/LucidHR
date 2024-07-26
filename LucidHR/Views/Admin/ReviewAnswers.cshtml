@@ -1,0 +1,102 @@
+﻿@model List<LucidHR.Models.PerformanceReview>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Review Answers";
+    var employees = ViewBag.Employees as List<LucidHR.Models.userLogin>;
+    int selectedUid = ViewBag.SelectedUid;
+}
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Review Answers</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <h2>Select Employee</h2>
+
+                @if (employees != null && employees.Count > 0)
+                {
+                    <table class="table table-bordered text-center">
+                        <thead >
+                            <tr >
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Fetch Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var employee in employees)
+                            {
+                                <tr>
+                                    <td>@employee.uname</td>
+                                    <td>@employee.uemail</td>
+                                    <td>
+                                        <form method="get" asp-action="ReviewAnswers">
+                                            <input type="hidden" name="uid" value="@employee.uid" />
+                                            <button type="submit" class="btn btn-primary my-3">Fetch Data</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No employees found.</p>
+                }
+
+                @if (Model != null && Model.Any())
+                {
+                    <h2>Review Answers</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var review in Model)
+                            {
+                                <tr>
+                                    <td>@review.Question.QuestionText</td>
+                                    <td>@review.AnswerText</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <form method="post" asp-action="ProvideFeedback">
+                        <div class="form-group my-5">
+                            <h1><label for="feedback">Provide Feedback:</label></h1>
+                            <textarea id="feedback" name="feedback" class="form-control border border-primary" required></textarea>
+                        </div>
+                        <input type="hidden" name="uid" value="@selectedUid" />
+                        <button type="submit" class="btn btn-primary my-2">Send Feedback</button>
+                    </form>
+                }
+                else if (selectedUid != 0)
+                {
+                    <div class="alert alert-info">No answers found for the selected employee.</div>
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

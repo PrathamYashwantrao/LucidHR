@@ -1,0 +1,87 @@
+﻿@model List<LucidHR.Models.Question>
+
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    ViewBag.Title = "Answer Questions";
+    int uid = ViewBag.Uid;
+    var reviews = ViewBag.Reviews as List<LucidHR.Models.PerformanceReview>;
+    bool isFormSent = ViewBag.IsFormSent;
+    bool isFormFilled = ViewBag.IsFormFilled;
+}
+
+
+
+<div id="main-content">
+
+<div class="block-header py-lg-4 py-3">
+    <div class="row g-3">
+        <div class="col-md-6 col-sm-12">
+            <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Submit Performance</h2>
+
+        </div>
+        <div class="col-md-6 col-sm-12 text-md-end">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-3">
+        <div class="card p-3">
+
+            <h2>Answer Questions</h2>
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-info">@ViewBag.Message</div>
+            }
+
+            @if (!isFormSent)
+            {
+                <div class="alert alert-info">The form has not been sent to you by your manager. Contact him/her.</div>
+            }
+            else if (!isFormFilled)
+            {
+                <form asp-action="SubmitAnswers" method="post">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var review = reviews.FirstOrDefault(r => r.QuestionId == Model[i].QuestionId);
+                        <div class="form-group">
+                            <label asp-for="@Model[i].QuestionText">@Model[i].QuestionText</label>
+                            <input type="hidden" name="reviews[@i].QuestionId" value="@Model[i].QuestionId" />
+                            <textarea class="form-control border border-primary" name="reviews[@i].AnswerText" required>@review?.AnswerText</textarea>
+                        </div>
+                    }
+                    <input type="hidden" name="uid" value="@uid" />
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-info">Here are your previous answers:</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var review in reviews)
+                        {
+                            <tr>
+                                <td>@review.Question?.QuestionText</td>
+                                <td>@review.AnswerText</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+
+
+
+        </div>
+    </div>
+
+</div>
+</div>

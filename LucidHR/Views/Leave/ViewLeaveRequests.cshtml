@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "View Leave Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // This line ensures that _layout.cshtml is not used for this view
+
+}
+
+
+@model List<LeaveRequest>
+
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Leave Requests</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <h1>Leave Requests</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Request Id</th>
+                            <th scope="col">Emp ID</th>
+                            <th scope="col">Emp Name</th>
+                            <th scope="col">Leave From Date</th>
+                            <th scope="col">Leave To Date</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Applied Leaves</th>
+                            <th scope="col">Total Bal Leaves</th>
+                            <th scope="col">Absent Days</th>
+                            <th scope="col">Leave Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model)
+                        {
+                            <tr>
+                                <td scope="row">@d.sr</td>
+                                <td>@d.uid</td>
+                                <td>@d.uname</td>
+                                <td>@d.leavefromdate</td>
+                                <td>@d.leavetodate</td>
+                                <td>@d.reason</td>
+                                <td>@d.applyleavedays</td>
+                                <td>@d.balleavedays</td>
+                                <td>@d.absentleavedays</td>
+                                <td>@d.lstatus</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "GetPayslipByEmail";
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payslip List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Payslip List for User</h1>
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="row g-3">
+                <div class="card p-3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month and Year</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                // Create a list to store parsed month-year pairs
+                                List<(string Month, string Year, string FileName)> payslips = new List<(string, string, string)>();
+
+                                foreach (var payslip in Model)
+                                {
+                                    var fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(payslip);
+                                    var parts = fileNameWithoutExtension.Split('_');
+                                    var month = parts[2];
+                                    var year = parts[3];
+
+                                    payslips.Add((month, year, payslip));
+                                }
+
+                                // Sort payslips by month and year
+                                payslips.Sort((x, y) => DateTime.ParseExact($"01-{x.Month}-{x.Year}", "dd-MMMM-yyyy", null)
+                                .CompareTo(DateTime.ParseExact($"01-{y.Month}-{y.Year}", "dd-MMMM-yyyy", null)));
+                            }
+
+                            @foreach (var payslip in payslips)
+                            {
+                                <tr>
+                                    <td>@payslip.Month @payslip.Year</td>
+                                    <td>
+                                        <form asp-action="ViewPayslip" asp-controller="Employee2" method="post" style="display: inline;">
+                                            <input type="hidden" name="payslipFileName" value="@payslip.FileName" />
+                                            <button class="btn btn-primary" type="submit">View</button>
+                                        </form>
+                                        <form asp-action="DownloadPayslip" asp-controller="Employee2" method="post" style="display: inline;">
+                                            <input type="hidden" name="payslipFileName" value="@payslip.FileName" />
+                                            <button class="btn btn-primary"  type="submit">Download</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

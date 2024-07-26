@@ -1,0 +1,169 @@
+﻿@model LucidHR.Models.PayslipData
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payslip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .details, .salary-details {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+            .details th, .details td, .salary-details th, .salary-details td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .details th, .salary-details th {
+                background-color: #f2f2f2;
+            }
+
+            .details td:nth-child(2), .salary-details td:nth-child(2) {
+                text-align: right;
+            }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="company-logo text-center">
+                <img src="https://masstechbusiness.com/wp-content/uploads/2021/12/Masstech-Logo-Resize.png" alt="Company Logo">
+            </div>
+            <h2>Payslip for the Month </h2>
+        </div>
+
+        <table class="details">
+            <tr>
+                <th>Name of Employee:</th>
+                <td>@Model.EmployeeName</td>
+                <th>Designation:</th>
+                <td>@Model.Designation</td>
+            </tr>
+            <tr>
+                <th>Bank Name:</th>
+                <td>@Model.BankName</td>
+                <th>Employee No:</th>
+                <td>@Model.EmployeeNo</td>
+            </tr>
+            <tr>
+                <th>IFSC Code:</th>
+                <td>@Model.IFSCCode</td>
+                <th>Date of Joining:</th>
+                <td>@Model.DateOfJoining.ToString("d-MMM-yy")</td>
+            </tr>
+            <tr>
+                <th>Bank Account No:</th>
+                <td>@Model.BankAccountNo</td>
+                <th>Days Paid:</th>
+                <td>@Model.DaysPaid</td>
+            </tr>
+            <tr>
+                <th>PAN:</th>
+                <td>@Model.PAN</td>
+                <th>Days in Month:</th>
+                <td>@Model.DaysInMonth</td>
+            </tr>
+            <tr>
+                <th>Aadhar:</th>
+                <td>@Model.Aadhar</td>
+                <th>UAN:</th>
+                <td>@Model.UAN</td>
+            </tr>
+            <tr>
+                <th>Balance Leave:</th>
+                <td>@Model.BalanceLeave</td>
+            </tr>
+        </table>
+
+        <table class="salary-details">
+            <tr>
+                <th>Gross Salary</th>
+                <th>Amount</th>
+                <th>Deduction</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>Basic</td>
+                <td>@Model.Basic.ToString("N0")</td>
+                <td>PF</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>HRA</td>
+                <td>@Model.HRA.ToString("N0")</td>
+                <td>Professional Tax</td>
+                <td>@Model.ProfessionalTax.ToString("N0")</td>
+            </tr>
+            <tr>
+                <td>Travel Allowance</td>
+                <td>@Model.TravelAllowance.ToString("N0")</td>
+                <td>TDS</td>
+                <td>@Model.TDS.ToString("N0")</td>
+            </tr>
+            <tr>
+                <td>Bonus</td>
+                <td>@Model.Bonus.ToString("N0")</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Special Allowance</td>
+                <td>@Model.SpecialAllowance.ToString("N0")</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Medical Reimbursement</td>
+                <td>@Model.MedicalReimbursement.ToString("N0")</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Gross Salary</th>
+                <th>@(Model.Basic + Model.HRA + Model.TravelAllowance + Model.Bonus + Model.SpecialAllowance + Model.MedicalReimbursement).ToString("N0")</th>
+                <th>Total Deduction</th>
+                <th>@(Model.ProfessionalTax + Model.TDS).ToString("N0")</th>
+            </tr>
+            <tr>
+                <th colspan="2"></th>
+                <th>Net Salary Paid</th>
+                <th>@Model.NetSalary</th>
+            </tr>
+        </table>
+
+        <div class="footer">
+            This is a computerised generated salary slip and does not require authentication.
+        </div>
+    </div>
+    <a asp-action="generatepdf">send</a>
+</body>
+</html>

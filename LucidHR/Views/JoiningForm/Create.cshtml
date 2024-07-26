@@ -1,0 +1,323 @@
+﻿@model LucidHR.Models.JoiningForm
+
+@{
+    ViewData["Title"] = "Create Joining Form";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<partial name="Notification"></partial>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Joining Form</title>
+    @*   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> *@
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #343a40;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: #495057;
+        }
+
+        .form-control, .custom-select {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+            .btn-primary:hover {
+                background-color: #224abe;
+                border-color: #224abe;
+            }
+
+        .drag-drop {
+            border: 2px dashed #ced4da;
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6c757d;
+            cursor: pointer;
+        }
+
+            .drag-drop.dragover {
+                border-color: #4e73df;
+                background-color: #f1f3f9;
+            }
+
+        .static-content {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="main-content">
+        <div class="block-header py-lg-4 py-3">
+            <div class="row g-3">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Joining Form</h2>
+                    @* <ul class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index-2.html">Lucid</a></li>
+                    <li class="breadcrumb-item">Apps</li>
+                    <li class="breadcrumb-item active">Tickets</li>
+                    </ul> *@
+                </div>
+                <div class="col-md-6 col-sm-12 text-md-end">
+                    @* <div class="d-inline-flex text-start">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-user"></i> 1,784</h6>
+                    <small>Visitors</small>
+                    </div>
+                    <span id="bh_visitors"></span>
+                    </div>
+                    <div class="d-inline-flex text-start ms-lg-3 me-lg-3 ms-1 me-1">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-globe"></i> 325</h6>
+                    <small>Visits</small>
+                    </div>
+                    <span id="bh_visits"></span>
+                    </div>
+                    <div class="d-inline-flex text-start">
+                    <div class="me-2">
+                    <h6 class="mb-0"><i class="fa fa-comments"></i> 13</h6>
+                    <small>Chats</small>
+                    </div>
+                    <span id="bh_chats"></span>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+
+
+
+
+            <div class="container-fluid">
+                <div class="row g-3">
+                    <div class="card p-3">
+
+                        <div class="container">
+                            <h2>Create Joining Form</h2>
+                            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="Fullname" class="form-label">Full Name</label>
+                                    <input asp-for="Fullname" class="form-control" />
+                                    <span asp-validation-for="Fullname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Address" class="form-label">Address</label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Designation" class="form-label">Designation</label>
+                                    <input asp-for="Designation" class="form-control" />
+                                    <span asp-validation-for="Designation" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Dateofjoining" class="form-label">Date of Joining</label>
+                                    <input asp-for="Dateofjoining" class="form-control" type="date" />
+                                    <span asp-validation-for="Dateofjoining" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Totalyearsofexperience" class="form-label">Total Years of Experience</label>
+                                    <input asp-for="Totalyearsofexperience" class="form-control" />
+                                    <span asp-validation-for="Totalyearsofexperience" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Contact" class="form-label">Contact</label>
+                                    <input asp-for="Contact" class="form-control" />
+                                    <span asp-validation-for="Contact" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Emergencycontactname" class="form-label">Emergency Contact Name</label>
+                                    <input asp-for="Emergencycontactname" class="form-control" />
+                                    <span asp-validation-for="Emergencycontactname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Emergencycontactnumber" class="form-label">Emergency Contact Number</label>
+                                    <input asp-for="Emergencycontactnumber" class="form-control" />
+                                    <span asp-validation-for="Emergencycontactnumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Relationwithperson" class="form-label">Relation with Person</label>
+                                    <input asp-for="Relationwithperson" class="form-control" />
+                                    <span asp-validation-for="Relationwithperson" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Uemail" class="form-label">Email</label>
+                                    <input asp-for="Uemail" class="form-control" />
+                                    <span asp-validation-for="Uemail" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Gender" class="form-label">Gender</label>
+                                    <select asp-for="Gender" class="custom-select">
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Fathersname" class="form-label">Father's Name</label>
+                                    <input asp-for="Fathersname" class="form-control" />
+                                    <span asp-validation-for="Fathersname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Maritalstatus" class="form-label">Marital Status</label>
+                                    <input asp-for="Maritalstatus" class="form-control" />
+                                    <span asp-validation-for="Maritalstatus" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Bloodgroup" class="form-label">Blood Group</label>
+                                    <input asp-for="Bloodgroup" class="form-control" />
+                                    <span asp-validation-for="Bloodgroup" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Pan" class="form-label">PAN</label>
+                                    <input asp-for="Pan" class="form-control" />
+                                    <span asp-validation-for="Pan" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Aadharno" class="form-label">Aadhar Number</label>
+                                    <input asp-for="Aadharno" class="form-control" />
+                                    <span asp-validation-for="Aadharno" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Dob" class="form-label">Date of Birth</label>
+                                    <input asp-for="Dob" class="form-control" type="date" />
+                                    <span asp-validation-for="Dob" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Placeofbirth" class="form-label">Place of Birth</label>
+                                    <input asp-for="Placeofbirth" class="form-control" />
+                                    <span asp-validation-for="Placeofbirth" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Bankname" class="form-label">Bank Name</label>
+                                    <input asp-for="Bankname" class="form-control" />
+                                    <span asp-validation-for="Bankname" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Ifsccode" class="form-label">IFSC Code</label>
+                                    <input asp-for="Ifsccode" class="form-control" />
+                                    <span asp-validation-for="Ifsccode" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Accountnumber" class="form-label">Account Number</label>
+                                    <input asp-for="Accountnumber" class="form-control" />
+                                    <span asp-validation-for="Accountnumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="AadharAttachment" class="form-label">Aadhar Attachment</label>
+                                    <div class="drag-drop" id="aadharDropzone">Drag and drop Aadhar file here or click to upload</div>
+                                    <input asp-for="AadharAttachment" type="file" id="aadharFileInput" class="d-none" />
+                                    <span asp-validation-for="AadharAttachment" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PanAttachment" class="form-label">PAN Attachment</label>
+                                    <div class="drag-drop" id="panDropzone">Drag and drop PAN file here or click to upload</div>
+                                    <input asp-for="PanAttachment" type="file" id="panFileInput" class="d-none" />
+                                    <span asp-validation-for="PanAttachment" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="pphoto" class="form-label">Photo</label>
+                                    <input asp-for="pphoto" type="file" id="photoFileInput" class="form-control" />
+                                    <span asp-validation-for="pphoto" class="text-danger"></span>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                            <div class="static-content">
+                                <p>Need help? Visit our <a href="#">Help Center</a> or contact <a href="mailto:support@yourdomain.com">support@yourdomain.com</a>.</p>
+                            </div>
+                        </div>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $('.form-control, .custom-select').on('focus', function () {
+                                    $(this).css('border-color', '#4e73df');
+                                }).on('blur', function () {
+                                    $(this).css('border-color', '#ced4da');
+                                });
+
+                                function handleFileSelect(event, dropzone, inputFile) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    dropzone.removeClass('dragover');
+                                    if (event.type === 'drop') {
+                                        var files = event.originalEvent.dataTransfer.files;
+                                        inputFile[0].files = files;
+                                    }
+                                }
+
+                                $('.drag-drop').on('dragover', function (event) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    $(this).addClass('dragover');
+                                }).on('dragleave', function (event) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                    $(this).removeClass('dragover');
+                                }).on('drop', function (event) {
+                                    var inputFile = $(this).next('input[type="file"]');
+                                    handleFileSelect(event, $(this), inputFile);
+                                }).on('click', function () {
+                                    $(this).next('input[type="file"]').click();
+                                });
+
+                                $('input[type="file"]').on('change', function () {
+                                    var fileName = $(this).val().split('\\').pop();
+                                    $(this).prev('.drag-drop').text(fileName);
+                                });
+
+                                $('form').on('submit', function () {
+                                    alert('Form submitted successfully!');
+                                });
+                            });
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿@model List<LucidHR.Models.StudentTasksModel>
+
+@{
+    ViewData["Title"] = "User Tasks";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1 style="color:black;margin-top:100px;margin-left:90px;font-family:Garamond"><b>Previous Tasks</b></h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No tasks found for the user.</p>
+}
+else
+{
+    <div class="task-container">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Batch</th>
+                    <th>Description</th>
+                    <th>Attachment Path</th>
+                    <th>Submission Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model)
+                {
+                    <tr>
+                        <td>@task.Name</td>
+                        <td>@task.Batch</td>
+                        <td>@task.Description</td>
+                        <td><a href="@Url.Content("~/" + task.AttachmentPath)" class="btn btn-danger" download>Download</a></td>
+                        <td>@(task.IsSubmitted ? "Submitted" : "Not Submitted")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<style>
+    body {
+        font-family: 'Century Gothic';
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+        width: 100%;
+    }
+
+    .task-container {
+        width: 95%;
+        max-width: 1150px;
+        margin-left: auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .task-table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .task-table th, .task-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .task-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .task-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .task-table tr:hover {
+            background-color: #ddd;
+        }
+
+    .btn {
+        padding: 8px 12px;
+        background-color: green;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        background-color: #0f85bf;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+</style>

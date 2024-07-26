@@ -1,0 +1,44 @@
+﻿@model LucidHR.Models.userLogin
+
+@{
+    ViewData["Title"] = "SendQuestions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="main-content">
+
+<div class="block-header py-lg-4 py-3">
+    <div class="row g-3">
+        <div class="col-md-6 col-sm-12">
+            <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Send Performance Questions</h2>
+
+        </div>
+        <div class="col-md-6 col-sm-12 text-md-end">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row g-3">
+        <div class="card p-3">
+
+            <h1>SendQuestions</h1>
+
+
+
+            <form asp-action="SendQuestions" method="post">
+                <div class="form-group">
+                    <label for="employeeSelect">Select Employee:</label>
+                        <select id="employeeSelect" class="form-control border border-primary" asp-for="uid" asp-items="ViewBag.Employees"></select>
+                </div>
+                <button type="submit" class="btn btn-primary my-3">Send Questions</button>
+            </form>
+
+
+
+        </div>
+    </div>
+
+</div>
+</div>

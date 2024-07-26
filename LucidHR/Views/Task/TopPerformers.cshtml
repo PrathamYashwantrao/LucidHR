@@ -1,0 +1,99 @@
+﻿@model LucidHR.Models.TopPerformersViewModel // Update with actual namespace
+@{
+    ViewData["Title"] = "Top Performance";
+    Layout = "~/Views/Shared/_TLayout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Performers</title>
+    <style>
+        body {
+            font-family: 'Century Gothic';
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        .task-table-container {
+            width: 100%;
+            margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .task-table {
+            width: 80%;
+            margin-top: 20px;
+            margin-left: 20%;
+        }
+
+            .task-table th, .task-table td {
+                padding: 12px 15px;
+                text-align: left;
+            }
+
+            .task-table th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            .task-table tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            .task-table tr:hover {
+                background-color: #ddd;
+            }
+
+            .task-table th, .task-table td {
+                padding: 12px 15px;
+            }
+
+        .trophy-icon {
+            color: gold;
+            margin-right: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-ksmxc5O7Aqzp5FAO24DXdn3C2q8dfyRVK7aK8Pqk02Udjy9U6cPCFoL9Unb2B/g7" crossorigin="anonymous">
+</head>
+<body>
+    <h1 style="color:black;margin-top:100px;margin-left:90px;font-family:Garamond"><b>Performers of the week</b></h1>
+    <div class="task-table-container">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Batch</th>
+                    <th>Total Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var performer in Model.TopPerformers)
+                {
+                    <tr>
+                        <td><i class="fas fa-trophy trophy-icon"></i>@performer.Name</td>
+                        <td>@performer.Batch</td>
+                        <td>@performer.TotalScore</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

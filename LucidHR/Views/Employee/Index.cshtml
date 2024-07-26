@@ -1,0 +1,86 @@
+﻿@model LucidHR.Models.PayslipViewModel
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Raise Tickets</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+                <form id="payslipForm">
+                    <div>
+                        <label for="uemail">User Email</label>
+                        <input type="email" id="uemail" name="uemail" required />
+                    </div>
+                    <div>
+                        <label for="month">Month</label>
+                        <input type="text" id="month" name="month" required />
+                    </div>
+                    <div>
+                        <label for="year">Year</label>
+                        <input type="number" id="year" name="year" required />
+                    </div>
+                    <button type="button" onclick="viewPayslip()">View Payslip</button>
+                    <button type="button" onclick="downloadPayslip()">Download Payslip</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function getPayslip(email, month, year, action) {
+        const response = await fetch('/Employee/GetPayslipByEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/pdf'
+            },
+            body: JSON.stringify({ Email: email, Month: month, Year: year })
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+
+            if (action === 'view') {
+                window.open(url);
+            } else if (action === 'download') {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Payslip_${email}_${month}_${year}.pdf`;
+                document.body.appendChild(a); // append the link to the document
+                a.click(); // trigger the download
+                a.remove(); // remove the link from the document
+            }
+        } else {
+            alert('Error fetching payslip');
+        }
+    }
+
+    function viewPayslip() {
+        const email = document.getElementById('uemail').value;
+        const month = document.getElementById('month').value;
+        const year = document.getElementById('year').value;
+        getPayslip(email, month, year, 'view');
+    }
+
+    function downloadPayslip() {
+        const email = document.getElementById('uemail').value;
+        const month = document.getElementById('month').value;
+        const year = document.getElementById('year').value;
+        getPayslip(email, month, year, 'download');
+    }
+</script>

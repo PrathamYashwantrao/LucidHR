@@ -1,0 +1,310 @@
+﻿
+
+@{
+    ViewData["Title"] = "it";
+    Layout = "~/Views/Shared/Home.cshtml";
+}
+@model Career
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="zoom1">Career</h2>
+            <ol>
+                <li><a asp-controller="Crm" asp-action="Index">Home</a></li>
+                <li>Career</li>
+            </ol>
+        </div>
+    </div>
+</section><!-- End Breadcrumbs -->
+
+<section class="container">
+    <div class="row my-3">
+        <div class="col-md-8 mt-5">
+          
+            <h3>Our Employee Benefits</h3>
+            <p>
+                Our employees are our most valuable assets. To ensure the success of Masstech Business Solutions we have kept employee benefits as an important element of the overall compensation of our employees. Our benefits program provides our employees with a health plan, insurance protection against unforeseen events, a generous number of paid holidays and much more:
+            </p>
+            <ul >
+                <li>Medical Insurance</li>
+                <li>24 Paid Leave Per Year</li>
+                <li>Gratuity Benefit</li>
+                <li>Employee Referral Program</li>
+                <li>Incentive Program</li>
+                <li>Rewards & Recognition Program</li>
+                <li>Social Security</li>
+                <li>Perks & Bonus</li>
+                <li>Yearly Appraisal</li>
+                <li>Official Picnic</li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <img src="https://th.bing.com/th?id=OIP.7OXXvNCO21zXI7cyxbmkqwHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2" width="400px"/>
+        </div>
+    </div>
+</section>
+@* <section class="container">
+    
+    <h2 class="text-center my-4">Send Us Resume</h2>
+    <form asp-controller="Career" asp-action="AddEmp" method="post" enctype="multipart/form-data">
+      
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Name">Full Name</label>
+                <input  asp-for="Name" class="form-control" id="fullName" placeholder="Your full name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Email" >Email</label>
+                <input asp-for="Email" class="form-control" id="email" placeholder="Your email id">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Contact">Mobile</label>
+                <input asp-for="Contact" class="form-control" id="mobile" placeholder="Your Mobile Number">
+            </div>
+            
+            <div class="form-group col-md-6">
+                <label asp-for="address">Address</label>
+                <input asp-for="address"  class="form-control" id="address" placeholder="Address">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="role">Position Applied</label>
+                <input asp-for="role" class="form-control" id="role" placeholder="Role">
+            </div>
+           
+            <div class="form-group col-md-6">
+                <label asp-for="yrofexp">Year Of Experience</label>
+                <input asp-for="yrofexp" class="form-control" id="exp" placeholder="">
+            </div>
+        </div>
+            <div class="form-row">
+             <div class="form-group col-md-6">
+                <label asp-for="noticeperiod">Notice Period</label>
+                <input asp-for="noticeperiod" class="form-control" id="np" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="doj">
+                    Earliest Joining Date
+                </label>
+                <input type="date" class="form-control" id="date" placeholder="">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="ctc">Current CTC</label>
+                <input asp-for="ctc" class="form-control" id="ctc" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="expctc">Expected CTC</label>
+                <input asp-for="expctc" class="form-control" id="ectc" placeholder="">
+            </div>
+        </div>
+            <div class="form-group col-md-6">
+            <label asp-for="noticeperiod">City</label>
+            <input asp-for="noticeperiod" class="form-control" id="city" placeholder="">
+            </div>
+       @*  <div class="form-group col-md-6">
+            <label asp-for="resume">Upload Resume</label>
+            <input asp-for ="resume" class="form-control" id="resume" placeholder="">
+        </div> *@
+        @*<div class="form-group">
+            <label asp-for="FileData">Upload PDF</label>
+            <input type="file" class="form-control" name="FileData" />
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="reason">Reason For Job Change</label>
+            <input asp-for="reason" class="form-control" id="reason" placeholder="">
+        </div>
+        </br>
+        </br>
+        <button value="submit"class="btn btn-primary">Submit</button>
+             </form>
+             </section> *@
+@*  <section class="container">
+    <div style="background-color: antiquewhite; padding: 20px; border-radius: 10px;">
+        <h2 class="text-center my-4">Send Us Resume</h2>
+        <form asp-controller="Career" asp-action="AddEmp" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Name">Full Name</label>
+                    <input asp-for="Name" class="form-control" id="fullName" placeholder="Your full name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" id="email" placeholder="Your email id">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Contact">Mobile</label>
+                    <input asp-for="Contact" class="form-control" id="mobile" placeholder="Your Mobile Number">
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="address">Address</label>
+                    <input asp-for="address" class="form-control" id="address" placeholder="Address">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="role">Position Applied</label>
+                    <input asp-for="role" class="form-control" id="role" placeholder="Role">
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="yrofexp">Year Of Experience</label>
+                    <input asp-for="yrofexp" class="form-control" id="exp" placeholder="">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="noticeperiod">Notice Period</label>
+                    <input asp-for="noticeperiod" class="form-control" id="np" placeholder="">
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="doj">Earliest Joining Date</label>
+                    <input asp-for="doj" type="date" class="form-control" id="date" placeholder="">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="ctc">Current CTC</label>
+                    <input asp-for="ctc" class="form-control" id="ctc" placeholder="">
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="expctc">Expected CTC</label>
+                    <input asp-for="expctc" class="form-control" id="ectc" placeholder="">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="city">City</label>
+                    <input asp-for="city" class="form-control" id="city" placeholder="">
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="FileData">Upload PDF</label>
+                    <input type="file" class="form-control" name="FileData" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="reason">Reason For Job Change</label>
+                    <input asp-for="reason" class="form-control" id="reason" placeholder="">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section> *@
+ 
+<section class="container">
+    <div style="background-color: antiquewhite; padding: 20px; border-radius: 10px;">
+        <h2 class="text-center my-4">Send Us Resume</h2>
+        <form id="careerForm" asp-controller="Career" asp-action="AddEmp" method="post" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Name">Full Name</label>
+                    <input asp-for="Name" class="form-control" id="fullName" placeholder="Your full name" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" id="email" placeholder="Your email id" required>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="Contact">Mobile</label>
+                    <input asp-for="Contact" class="form-control" id="mobile" placeholder="Your Mobile Number" required>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="address">Address</label>
+                    <input asp-for="address" class="form-control" id="address" placeholder="Address" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="role">Position Applied</label>
+                    <input asp-for="role" class="form-control" id="role" placeholder="Role" required>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="yrofexp">Year Of Experience</label>
+                    <input asp-for="yrofexp" class="form-control" id="exp" placeholder="" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="noticeperiod">Notice Period</label>
+                    <input asp-for="noticeperiod" class="form-control" id="np" placeholder="" required>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="doj">Earliest Joining Date</label>
+                    <input asp-for="doj" type="date" class="form-control" id="date" placeholder="" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="ctc">Current CTC</label>
+                    <input asp-for="ctc" class="form-control" id="ctc" placeholder="" required>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="expctc">Expected CTC</label>
+                    <input asp-for="expctc" class="form-control" id="ectc" placeholder="" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="city">City</label>
+                    <input asp-for="city" class="form-control" id="city" placeholder="" required>
+                </div>
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="FileData">Upload PDF</label>
+                    <input type="file" class="form-control" name="FileData" id="pdfFile" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6" style="margin-bottom: 15px;">
+                    <label asp-for="reason">Reason For Job Change</label>
+                    <input asp-for="reason" class="form-control" id="reason" placeholder="" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    document.getElementById('careerForm').addEventListener('submit', function(event) {
+        var requiredFields = document.querySelectorAll('#careerForm input[required]');
+        var allFieldsFilled = true;
+
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                allFieldsFilled = false;
+                field.style.borderColor = "red"; // Optional: Highlight empty fields
+            } else {
+                field.style.borderColor = ""; // Reset border color if field is filled
+            }
+        });
+
+        if (!allFieldsFilled) {
+            alert('Please fill out all required fields.');
+            event.preventDefault();
+        }
+
+        // var pdfFileInput = document.getElementById('pdfFile');
+        // if (pdfFileInput.files.length === 0) {
+        //     if (!confirm('No PDF file uploaded. Do you want to proceed without a PDF file?')) {
+        //         event.preventDefault();
+        //     }
+        
+    });
+</script>
+ 

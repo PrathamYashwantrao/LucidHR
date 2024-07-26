@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Task Manager</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/css/styleTask.css" />
+
+    <!-- Add other template CSS files here -->
+</head>
+<body>
+    <header>
+        <!-- Add your template's header HTML here -->
+        @*   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container"> *@
+        @*                 <a class="navbar-brand">Task Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button> *@
+        @*                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav flex-grow-1">
+        @if (User.Identity.IsAuthenticated)
+        {
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Logout">Logout</a>
+        </li>
+        }
+        else
+        {
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Login">Login</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Main" asp-action="Register">Register</a>
+        </li>
+        }
+        </ul>
+        </div> *@
+        <!-- Header Right Menu -->
+        @*  @if (User.Identity.IsAuthenticated)
+        {
+        <ul class="nav user-menu">
+        <li class="nav-item dropdown has-arrow new-user-menus">
+        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+        <div class="user-img">
+        <div class="user-text">
+        <h6>@User.Identity.Name</h6>
+        <p class="text-muted mb-0"></p>
+        </div>
+        </div>
+        </a>
+        <div class="dropdown-menu">
+        <div class="user-header">
+        <div class="user-text">
+        <h6>@User.Identity.Name</h6>
+        <p class="text-muted mb-0"></p>
+        </div>
+        </div>
+        <a class="dropdown-item" asp-controller="Main" asp-action="Logout">Logout</a>
+        </div>
+        </li>
+        </ul>
+        }
+        </div>
+        </nav> *@
+        @*     </header> *@
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - TaskManager - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/assets/js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgC4p8FiTP7nFZ13wflU5UcLYyXx1p1zcBU5f3z+5Pj57YyR5vA" crossorigin="anonymous"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

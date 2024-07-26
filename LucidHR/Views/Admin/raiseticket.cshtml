@@ -1,0 +1,182 @@
+﻿@model LucidHR.Models.TicketDetails
+
+@{
+    ViewData["Title"] = "raiseticket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise Ticket</title>
+    @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> *@
+    @* <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    }
+
+    .container {
+    max-width: 600px;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    }
+
+    .header-section {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+    .form-section {
+    text-align: left;
+    border-radius: 10px important;
+    }
+
+    .welcome-message {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 20px;
+    }
+
+    h1 {
+    font-size: 24px;
+    color: #343a40;
+    margin-bottom: 20px;
+    }
+
+    .form-label {
+    font-size: 16px;
+    color: #495057;
+    }
+
+    .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    }
+
+    .btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+    }
+
+    .btn-primary:hover {
+    background-color: #224abe;
+    border-color: #224abe;
+    }
+    </style> *@
+</head>
+<body>
+
+    <div id="main-content">
+
+        <div class="block-header py-lg-4 py-3">
+            <div class="row g-3">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Raise Tickets</h2>
+
+                </div>
+                <div class="col-md-6 col-sm-12 text-md-end">
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row g-3">
+                <div class="card p-3">
+
+                    <div class="">
+                        <div class="header-section">
+                            @*    <img src="~/assets/images/image-gallery/1.jpg" alt="Logo" style="width: 100px;"> *@
+                        </div>
+
+                        <div class="form-section">
+                            <div class="welcome-message">Welcome @ViewBag.Name</div>
+                            <h1 class="text-center">Raise Ticket</h1>
+                            <form id="ticketForm" method="post">
+                                <div class="form-group">
+                                    <label for="role" class="form-label">Select Role:</label>
+                                    <select id="role" name="role" class="form-control">
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Name:</label>
+                                    <select id="name" name="name" class="form-control">
+                                        <option value="">Select a role first</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ticketDetails" class="form-label">Query Details:</label>
+                                    <textarea id="ticketDetails" name="ticketDetails" class="form-control" rows="4"></textarea>
+                                </div>
+
+                                <button type="button" id="submitTicketBtn" class="btn btn-primary btn-block my-3">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#role').change(function () {
+                var role = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetNamesByRole", "Admin")',
+                    type: 'POST',
+                    data: { role: role },
+                    success: function (data) {
+                        var names = JSON.parse(data);
+                        $('#name').empty();
+                        names.forEach(function (name) {
+                            $('#name').append(new Option(name, name));
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to retrieve names:', error);
+                    }
+                });
+            });
+
+            $('#submitTicketBtn').click(function () {
+                var ticketDetails = {
+                    Name: $('#name').val(),
+                    Role: $('#role').val(),
+                    TicketDetail: $('#ticketDetails').val()
+                };
+
+                $.ajax({
+                    url: '@Url.Action("SubmitTicket", "Admin")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(ticketDetails),
+                    success: function (response) {
+                        alert('Ticket submitted successfully!');
+                        $('#ticketForm')[0].reset();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to submit ticket:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

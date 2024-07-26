@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "AdminDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AdminDashboard</h1>
+
+<h2>Admin Dashboard</h2>
+
+<style>
+    .form{
+        margin-left: 600px;
+    }
+</style>
+
+<ul class="form container">
+    <li><a href="@Url.Action("ViewForm16", "Admin")">View Form 16</a></li>
+    <li><a href="@Url.Action("ViewJoiningForm", "Admin")">View Joining Form</a></li>
+</ul>
+

@@ -1,0 +1,131 @@
+﻿@model LoginViewModelTask
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutTask.cshtml";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager- Login</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/img/TaskLogoSmall.jpeg" />
+
+    <!-- Fontfamily -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- Feathericon CSS -->
+    <link rel="stylesheet" href="~/plugins/feather/feather.css" />
+
+    <!-- Pe7 CSS -->
+    <link rel="stylesheet" href="~/plugins/icons/flags/flags.css" />
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/css/styleTask.css" />
+
+    <style>
+        .login-wrapper .loginbox .login-left {
+            align-items: center;
+            flex-direction: column;
+            justify-content: end;
+            width: 400px;
+            display: flex;
+            background-blend-mode: multiply;
+            border-radius: 8px 20px 20px 8px;
+            position: relative;
+        }
+
+        body {
+            font-family: 'Century Gothic'
+        }
+
+        .profile-views {
+            cursor: pointer;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 40%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left">
+                        <img class="img-fluid rounded-start rounded-3" src="https://images.unsplash.com/photo-1566888596782-c7f41cc184c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80" alt="Logo" />
+                    </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap">
+                            <h1 style="font-family:Garamond"><b>Welcome to tasks!</b></h1>
+                            <p style="font-family:Garamond" class=" account-subtitle">Need an account?  <a href="~/MainTask/Register"><b>Sign Up</b></a></p>
+                            <h2 style="font-family:Garamond"><b>Sign in</b></h2>
+                            <form asp-action="Login" method="post">
+                                <div class="form-group position-relative">
+                                    <label>Username <span class="login-danger">*</span></label>
+                                    <input asp-for="Username" class="form-control" />
+                                    <span class="profile-views"><i class="fas fa-user-circle"></i></span>
+                                </div>
+                                <div class="form-group position-relative">
+                                    <label>Password <span class="login-danger">*</span></label>
+                                    <input asp-for="Password" type="password" class="form-control password-input" id="password-input" />
+                                    <i class="fas fa-eye password-toggle" id="password-toggle" onclick="togglePassword()"></i>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Feather Icon JS -->
+    <script src="~/js/feather.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="~/js/script.js"></script>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById("password-input");
+            const passwordToggle = document.getElementById("password-toggle");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.classList.remove("fa-eye");
+                passwordToggle.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.classList.remove("fa-eye-slash");
+                passwordToggle.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Generate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model LucidHR.Models.OfferLetterViewModel
+
+
+<div id="main-content">
+
+    <div class="block-header py-lg-4 py-3">
+        <div class="row g-3">
+            <div class="col-md-6 col-sm-12">
+                <h2 class="m-0 fs-5"><a href="javascript:void(0);" class="btn btn-sm btn-link ps-0 btn-toggle-fullwidth"><i class="fa fa-arrow-left"></i></a>Generate Offer Letter</h2>
+
+            </div>
+            <div class="col-md-6 col-sm-12 text-md-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="card p-3">
+
+
+                <h2>Offer Letter Generator</h2>
+
+                <form asp-action="Generate" method="post" id="offerLetterForm" class="main-content container mt-5">
+                    <div class="form-group">
+                        <label asp-for="Role">Role:</label>
+                        <select asp-for="Role" id="roleSelect" class="form-control">
+                            <option value="">Select Role</option>
+                            <option value="Trainee">Trainee</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DateOfJoining"></label>
+                        <input asp-for="DateOfJoining" class="form-control" type="date" />
+                        <span asp-validation-for="DateOfJoining" class="text-danger"></span>
+                    </div>
+
+                    <div id="otherFields" style="display:none;">
+                        <div class="form-group">
+                            <label asp-for="Salary"></label>
+                            <input asp-for="Salary" class="form-control" />
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Designation"></label>
+                            <input asp-for="Designation" class="form-control" />
+                            <span asp-validation-for="Designation" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Hra"></label>
+                            <input asp-for="Hra" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="Hra" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TravelAllowance"></label>
+                            <input asp-for="TravelAllowance" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="TravelAllowance" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Bonus"></label>
+                            <input asp-for="Bonus" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="Bonus" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SpecialAllowance"></label>
+                            <input asp-for="SpecialAllowance" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="SpecialAllowance" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Medical"></label>
+                            <input asp-for="Medical" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="Medical" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Pf"></label>
+                            <input asp-for="Pf" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="Pf" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="BasicSalary"></label>
+                            <input asp-for="BasicSalary" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="BasicSalary" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProfessionalTax"></label>
+                            <input asp-for="ProfessionalTax" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="ProfessionalTax" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Tds"></label>
+                            <input asp-for="Tds" type="number" step="0.01" class="form-control" />
+                            <span asp-validation-for="Tds" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary my-3">Generate Offer Letter</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#roleSelect').change(function () { // Updated the selector to match the id
+                if ($(this).val() === 'Other') {
+                    $('#otherFields').show();
+                } else {
+                    $('#otherFields').hide();
+                }
+            });
+
+            // Ensure the otherFields div is correctly shown or hidden on page load based on the current selection
+            if ($('#roleSelect').val() === 'Other') {
+                $('#otherFields').show();
+            }
+        });
+    </script>
+}
